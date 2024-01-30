@@ -93,21 +93,6 @@ native Unloadscript(script[]);
 native CallRemoteFunction(function[], format[], {Float,_}:...);
 native DC_GetBotPing();
 
-//         - INIFile (DCAMX core)
-native INI_Delete(fileid);
-native INI_Open(filepath[]);
-native INI_Close(fileid);
-native INI_Write(fileid, key[], value[], section[]);
-native INI_WriteInt(fileid, key[], value, section[]);
-native Float:INI_ReadFloat(fileid, key[], section[]);
-native INI_WriteFloat(fileid, key[], Float:value, section[]);
-native INI_Read(fileid, key[], section[], output[]);
-native INI_ReadInt(fileid, key[], section[]);
-native INI_KeyExists(fileid, key[], section[]);
-native INI_Exists(filepath[]);
-native INI_DeleteSection(fileid, section[]);
-native INI_DeleteKey(fileid, key[], section[]);
-
 //         - Discord / Bot
 native DC_SetMinLogLevel(lvl);
 native DC_SetActivityText(text[], activity_type = DISCORD_ACTIVITY_PLAYING);

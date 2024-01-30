@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using discordamx.Discord;
 using DSharpPlus.Entities;
 using discordamx.Utils;
+using discordamx.Scripting;
 
 namespace discordamx
 {
@@ -82,6 +83,10 @@ namespace discordamx
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Plugins/");
 
+
+            
+
+
             //check if main config exists..
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "discordamx.properties"))
             {
@@ -98,38 +103,15 @@ namespace discordamx
                 Program.dConfig.Token = m_Properties.get("discord-bot-token");
 
                 //Start the discord bot
-                Discord.Bot.RunAsync(dConfig).GetAwaiter().GetResult();
+                Bot.RunAsync(dConfig).GetAwaiter().GetResult();
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("[INFO] Waiting for first guild data download to finish..");
+                Log.Debug("Waiting for first guild data download to finish..");
                 while (!Program.m_ScriptingInited)
                 {
-                    Console.Write(".");
                     Thread.Sleep(900);   
                 }
                 Console.Write("\n");
-
-
-                foreach (string fl in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
-                {
-                    if (!fl.EndsWith(".dll")) continue;
-                    Log.Info("\n---------------------------------------------\n" +
-                                                   "[CORE] Found plugin: '" + fl + "' !");
-                    Log.Info("\n---------------------------------------------");
-                    new Plugins.Plugin(fl);
-                }
-
-
-                if (!String.IsNullOrEmpty(m_Properties.get("main-script")) || !String.IsNullOrWhiteSpace(m_Properties.get("main-script")))
-                {
-                    //Load a specific script first.
-                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/" + m_Properties.get("main-script") + ".amx"))
-                    {
-                        Scripting.Manager.m_InitScriptName = m_Properties.get("main-script");
-                        Scripting.Manager.m_InitScript = new Scripting.Script(AppDomain.CurrentDomain.BaseDirectory + "Scripts/" + m_Properties.get("main-script") + ".amx");
-                        Scripting.Manager.m_InitScript.m_Amx.ExecuteMain();
-                    }
-                }
 
 
             }
@@ -138,7 +120,16 @@ namespace discordamx
                 StopEverything();
                 return;
             }
-
+            
+            //Load the plugins
+            /*foreach (string fl in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
+            {
+                if (!fl.EndsWith(".dll")) continue;
+                Log.Info("---------------------------------------------\n" +
+                                               "[CORE] Found plugin: '" + fl + "' !");
+                Log.Info("---------------------------------------------");
+                new Plugins.Plugin(fl);
+            }*/ 
 
             /*
             int idx = 0;
@@ -173,7 +164,7 @@ namespace discordamx
                 idx++;
             }*/
 
-            
+
             //Load all the other files.
             Scripting.Manager.LoadFiles();
           

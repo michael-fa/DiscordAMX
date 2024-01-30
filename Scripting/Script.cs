@@ -13,7 +13,7 @@ namespace discordamx.Scripting
     public class Script
     {
         public string                                                m_amxFile = null!;
-        public AMX                                                   m_Amx;
+        public AMX                                                   m_Amx = null!;
         public byte[]                                                m_Hash = null!;
         //public static                                                List<Scripting.ScriptTimer> m_ScriptTimers = null!;
 

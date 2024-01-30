@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 
 //Note
-//Unload/Reload should check for
+//load/Reload should check for
 //scriptfile hash Differences because of name problems
 namespace discordamx.Scripting
 {
@@ -18,32 +18,36 @@ namespace discordamx.Scripting
     {
         private static bool m_Inited;
         public static List<Script> m_Scripts = new List<Script>();
-        public static string m_InitScriptName = null!;
-        public static Script m_InitScript = null!;
 
         public static void LoadFiles()
         {
            
             Script scr = null!;
+            byte[] _hash = null!;
+            int first = 0;
             foreach (string x in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Scripts\"))
             {
                 if (!x.Contains(".amx")) continue;
-                if (x.Equals(m_InitScript)) continue; //the main file is reserved to be loaded first.
+
+                
+                //Pregen the hash, make sure its not equal to the main script already loaded.
+                using (var md5 = MD5.Create())
+                {
+                    using (var stream = File.OpenRead(x))
+                    {
+                        _hash = md5.ComputeHash(stream);
+                    }
+                }
+
                 try
                 {
                     scr = new Script(x);
-
-                    m_Scripts.Add(scr!);
-
-                    using (var md5 = MD5.Create())
-                    {
-                        using (var stream = File.OpenRead(x))
-                        {
-                            scr.m_Hash = md5.ComputeHash(stream);
-                        }
-                    }
-
-                    Log.Debug("Loaded Script + " + x + " with hash =  " + BitConverter.ToString(scr.m_Hash).Replace("-", "").ToLowerInvariant() + "!");
+                    scr.m_Hash = _hash;
+                    m_Scripts.Add(scr);
+                    Log.Debug("Loaded Script " + x + " with hash =  " + BitConverter.ToString(scr.m_Hash).Replace("-", "").ToLowerInvariant() + "!");
+                    if (first == 0) scr.m_Amx.ExecuteMain(); //Only for the first file.
+                    
+                    first = 1;
                     var p = scr.m_Amx.FindPublic("OnInit");
                     if (p != null) p.Execute();
                 }
