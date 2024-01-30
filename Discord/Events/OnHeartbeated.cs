@@ -23,8 +23,12 @@ namespace discordamx.Discord.Events
             if(Program.m_ScriptingInited)
             {
                 AMXPublic p = Scripting.Manager.m_Scripts[0].m_Amx.FindPublic("OnHeartbeat");
-                p.AMX.Push(e.Ping);
-                if (p != null) p.Execute();
+
+                if (p != null)
+                {
+                    p.AMX.Push(e.Ping);
+                    p.Execute();
+                }
                
             }
             return Task.CompletedTask;

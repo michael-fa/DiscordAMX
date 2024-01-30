@@ -51,7 +51,7 @@ namespace discordamx.Discord.Events
                 }
             }
 
-            //While DownloadCompleted gets called more then once, we need only the first call (which we call our main script init, since atp all guilds and members are now available to script.)
+            //While DownloadCompleted gets called more then once, we need only the first call (which we call our main script init, since a. t. p. all guilds and members are now available to script.)
             Program.m_ScriptingInited = true;
 
             return Task.CompletedTask;
