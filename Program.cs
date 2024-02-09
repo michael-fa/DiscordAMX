@@ -9,6 +9,8 @@ namespace discordamx
 
     internal static partial class Program
     {
+        public static string VERSION = "0.0.2";
+
         public static bool                                  m_Run = true;
         public static Properties                            m_Properties = null!;
         private static ConsoleColor                         m_DefForegrColor;

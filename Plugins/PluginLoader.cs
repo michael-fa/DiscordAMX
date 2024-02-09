@@ -16,7 +16,10 @@ namespace discordamx.Plugin
             plugins = new List<IPlugin>();
 
             await Task.Run(() => {
-
+                while(Scripting.Manager.m_Scripts.Count == 0)
+                {
+                    Thread.Sleep(100);
+                }
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Plugins"))
                 {
                     string[] dllFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins/", "*.dll");

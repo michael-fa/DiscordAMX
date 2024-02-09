@@ -21,7 +21,6 @@ namespace discordamx.Scripting
 
         public static void LoadFiles()
         {
-
             Script scr = null!;
             byte[] _hash = null!;
             int first = 0;
@@ -58,6 +57,12 @@ namespace discordamx.Scripting
 
 
 
+            }
+            if(first == 0)
+            {
+                Log.Error("No amx script found to execute!");
+                Thread.Sleep(5000);
+                Program.StopEverything(0);
             }
         }
 
