@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 //Note
 //load/Reload should check for
-//scriptfile hash Differences because of name problems
+//script file hash Differences because of name problems
 namespace discordamx.Scripting
 {
     static class Manager
@@ -21,15 +21,15 @@ namespace discordamx.Scripting
 
         public static void LoadFiles()
         {
-           
+
             Script scr = null!;
             byte[] _hash = null!;
             int first = 0;
             foreach (string x in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Scripts\"))
             {
-                if (!x.Contains(".amx")) continue;
+                if (!Path.GetExtension(x).Equals(".amx", StringComparison.OrdinalIgnoreCase)) continue;
 
-                
+
                 //Pregen the hash, make sure its not equal to the main script already loaded.
                 using (var md5 = MD5.Create())
                 {
@@ -46,7 +46,7 @@ namespace discordamx.Scripting
                     m_Scripts.Add(scr);
                     Log.Debug("Loaded Script " + x + " with hash =  " + BitConverter.ToString(scr.m_Hash).Replace("-", "").ToLowerInvariant() + "!");
                     if (first == 0) scr.m_Amx.ExecuteMain(); //Only for the first file.
-                    
+
                     first = 1;
                     var p = scr.m_Amx.FindPublic("OnInit");
                     if (p != null) p.Execute();
@@ -57,7 +57,7 @@ namespace discordamx.Scripting
                 }
 
 
-              
+
             }
         }
 
