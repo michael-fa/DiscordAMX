@@ -11,6 +11,11 @@ using discordamx.Discord;
 using DSharpPlus.Entities;
 using discordamx.Utils;
 using discordamx.Scripting;
+using Microsoft.VisualBasic;
+using System.IO;
+using static System.Collections.Specialized.BitVector32;
+using System.IO.Pipes;
+using discordamx.Plugin;
 
 namespace discordamx
 {
@@ -24,8 +29,10 @@ namespace discordamx
         {
             if (m_Setup) return;
 
+
+
             Program.m_ScriptGuilds = new List<Scripting.Guild>();
-            Program.m_Plugins = new List<Plugins.Plugin>();
+            
             m_DmUsers = new List<DiscordChannel>();
             Program.m_Embeds = new List<Scripting.DiscordEmbedBuilder>();
 
@@ -74,16 +81,6 @@ namespace discordamx
             };
 
 
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/"))
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Scripts/");
-
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Logs/"))
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs/");
-
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Plugins/");
-
-
             
 
 
@@ -91,7 +88,7 @@ namespace discordamx
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "discordamx.properties"))
             {
                 //Set defaults
-                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "discordamx.properties", "discord-bot-token=changeme\n#This option is optional, since every .amx file inside /scripts/ is automatically loaded. This only loadsa script first(!!) if you wish to.\nmain-script=");
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "discordamx.properties", "#You need to know how to create a bot with the Discord Developer Portal website. Use the internet for tutorials. Add your own bot's token below:\ndiscord-bot-token=changeme");
             }
 
 
@@ -120,49 +117,10 @@ namespace discordamx
                 StopEverything();
                 return;
             }
-            
+
             //Load the plugins
-            /*foreach (string fl in Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
-            {
-                if (!fl.EndsWith(".dll")) continue;
-                Log.Info("---------------------------------------------\n" +
-                                               "[CORE] Found plugin: '" + fl + "' !");
-                Log.Info("---------------------------------------------");
-                new Plugins.Plugin(fl);
-            }*/ 
+            PluginLoader.LoadPluginsAsync();
 
-            /*
-            int idx = 0;
-            foreach (string arg in args)
-            {
-                switch (arg)
-                {
-                    case "-mainscript":
-
-                        try
-                        {
-                            if (args[idx + 1] != null && args[idx + 1].Length > 0 && !_mainScriptLoaded)
-                            {
-                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/" + args[idx + 1] + ".amx"))
-                                {
-                                    Console.WriteLine("mainscript forced");
-                                    Scripting.Manager.m_InitScript = new Scripting.Script(AppDomain.CurrentDomain.BaseDirectory + "Scripts/" + args[idx + 1] + ".amx"); //Priority (force) calling the main script, if given.
-                                    Scripting.Manager.m_InitScript.m_Amx.ExecuteMain();
-                                    _mainScriptLoaded = true;
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            Log.Error("Main script defined incorrectly!");
-                        }
-
-                        break;
-
-                }
-
-                idx++;
-            }*/
 
 
             //Load all the other files.

@@ -6,7 +6,10 @@ using System.Reflection;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using AMXWrapperCore;
+using discordamx.Plugin;
+using DiscordAmxPlugin;
 
 namespace discordamx.Scripting
 {
@@ -190,32 +193,30 @@ namespace discordamx.Scripting
             m_Amx.Register("DC_RemovePrivateReaction", (amx1, args1) => Natives.DiscordNatives.DC_RemovePrivateReaction(amx1, args1, this));
 
 
-            foreach (Plugins.Plugin plugin in Program.m_Plugins)
+            foreach (var plugin in PluginLoader.plugins)
             {
                 try
                 {
-                    object ret = plugin.m_Instance.GetType().GetMethod("GetNatives", BindingFlags.Public | BindingFlags.Static)!.Invoke(null, null)!;
-                    //Fetch all the natives we need to register from this plugin
-                    IEnumerable enumerable = ret as IEnumerable;
+                    string[] retnats = plugin.GetNatives();
+                    if (retnats.Length == 0) continue;
 
-                    if (enumerable != null)
+                    foreach (string x in retnats)
                     {
-                        foreach (object element in enumerable)
+                        Console.WriteLine("METHOD: FOUND NATIVE " + x);
+                        m_Amx.Register(x, (amx1, args1) =>
                         {
-                            this.m_Amx.Register((string)element, (amx1, args1) =>
-                            {
-                                plugin.m_Plugin.GetExportedTypes()[0].InvokeMember((string)element, BindingFlags.InvokeMethod, null, plugin.m_Instance, new object[] { amx1, args1 });
-                                return 1;
-                            });
-                            Log.Debug("Registering native " + (string)element + " for plugin: " + plugin.m_Plugin);
-                        }
+                            plugin.GetType().GetMethod(x)!.Invoke(plugin, new object[] {amx1, args1, this});
+                            //plugin.GetExportedTypes()[0].InvokeMember(x, BindingFlags.InvokeMethod, null, plugin, new object[] { amx1, args1 });
+                            return 1;
+                        });
                     }
+
 
 
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("=========================\nPlugin " + plugin.m_Plugin.FullName + " threw an error:\n" + ex.Message + "\nSOURE: \n" + ex.Source + ex.InnerException + ex.StackTrace + "\n        =========================\n");
+                    Log.Error("=========================\nPlugin " + plugin + " threw an error:\n" + ex.Message + "\nSOURE: \n" + ex.Source + ex.InnerException + ex.StackTrace + "\n        =========================\n");
                 }
             }
 

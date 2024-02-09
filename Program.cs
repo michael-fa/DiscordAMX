@@ -2,6 +2,7 @@
 using DSharpPlus;
 using DSharpPlus.Entities;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace discordamx
 {
@@ -14,7 +15,6 @@ namespace discordamx
         private static bool                                 m_Setup = false;
         public static DiscordConfiguration                  dConfig = null!;
         public static bool                                  m_ScriptingInited = false;
-        public static List<Plugins.Plugin>                  m_Plugins = null;
         public static List<DiscordChannel>                  m_DmUsers = null;
         public static List<Scripting.DiscordEmbedBuilder>   m_Embeds = null;
         public static List<Scripting.Guild>                 m_ScriptGuilds = null!;
@@ -53,6 +53,19 @@ namespace discordamx
 
         static void Main(string[] args)
         {
+
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/"))
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Scripts/");
+
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Logs/"))
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs/");
+
+            if (!File.Exists(@Environment.CurrentDirectory + "/Logs/" + Log.fileName))
+                File.Create(@Environment.CurrentDirectory + "/Logs/" + Log.fileName);
+
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Plugins/");
+
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             m_DefForegrColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.White;
