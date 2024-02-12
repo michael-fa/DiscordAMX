@@ -20,7 +20,7 @@ namespace discordamx.Discord.Events
     {
         public static Task Join(DiscordClient c, GuildMemberAddEventArgs arg)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnMemberJoin");
@@ -31,7 +31,7 @@ namespace discordamx.Discord.Events
                     p.Execute();
                     GC.Collect();
                 }
-                p = null;
+                p = null!;
             }
 
             foreach (Scripting.Guild gld in Program.m_ScriptGuilds)
@@ -47,7 +47,7 @@ namespace discordamx.Discord.Events
         {
             if (arg.Member == Discord.Bot.Client.CurrentUser) return Task.CompletedTask;
 
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnMemberLeft");
@@ -58,7 +58,7 @@ namespace discordamx.Discord.Events
                     p.Execute();
                     GC.Collect();
                 }
-                p = null;
+                p = null!;
             }
 
             

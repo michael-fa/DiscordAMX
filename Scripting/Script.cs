@@ -31,7 +31,7 @@ namespace discordamx.Scripting
             }
             catch (Exception e)
             {
-                Log.Exception(e);
+                Program.m_Logger.Exception(e);
                 return;
             }
 
@@ -216,7 +216,7 @@ namespace discordamx.Scripting
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("=========================\nPlugin " + plugin + " threw an error:\n" + ex.Message + "\nSOURE: \n" + ex.Source + ex.InnerException + ex.StackTrace + "\n        =========================\n");
+                    Program.m_Logger.Error("=========================\nPlugin " + plugin + " threw an error:\n" + ex.Message + "\nSOURE: \n" + ex.Source + ex.InnerException + ex.StackTrace + "\n        =========================\n");
                 }
             }
 

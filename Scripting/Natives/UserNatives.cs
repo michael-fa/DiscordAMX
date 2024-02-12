@@ -17,8 +17,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetMemberName' (dest_string must be a array, or invalid parameters!!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetMemberName' (dest_string must be a array, or invalid parameters!!)", caller_script);
                 return 0;
             }
             return 1;
@@ -35,8 +35,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetMemberDisplayName' (dest_string must be a array, or invalid parameters!!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetMemberDisplayName' (dest_string must be a array, or invalid parameters!!)", caller_script);
                 return 0;
             }
             return 1;
@@ -53,8 +53,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetMemberDiscriminator' (dest_string must be a array, or invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetMemberDiscriminator' (dest_string must be a array, or invalid parameters!)", caller_script);
                 return 0;
             }
             return 1;
@@ -71,8 +71,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetMemberID' (dest_string must be a array, or invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetMemberID' (dest_string must be a array, or invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -83,12 +83,12 @@ namespace discordamx.Scripting.Natives
         {
             if (args1.Length != 2) return 0;
 
-            DiscordGuild guild = null;
+            DiscordGuild guild = null!;
             if (args1[0].AsInt32() > -1)guild = Utils.Scripting.ScrGuild_DCGuild(args1[0].AsInt32());
 
             if(guild == null)
             {
-                DiscordChannel user = null;
+                DiscordChannel user = null!;
                 user = Discord.Bot.Client.GetChannelAsync(Convert.ToUInt64(args1[1].AsString())).Result;
                 if (user != null) return 1;
             }
@@ -151,8 +151,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_BanMember' (invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_BanMember' (invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -174,8 +174,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_UnbanMember' (invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_UnbanMember' (invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -197,8 +197,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_TimeoutMember' (invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_TimeoutMember' (invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -228,8 +228,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GuildMemberHasRole' (invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GuildMemberHasRole' (invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -257,8 +257,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_SetMemberRole' (invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_SetMemberRole' (invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -286,8 +286,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_RemoveMemberRole' (invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_RemoveMemberRole' (invalid parameters!)", caller_script);
                 return 0;
             }
 
@@ -305,8 +305,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetMemberAvatarURL' (dest_string must be a array, or invalid parameters!!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetMemberAvatarURL' (dest_string must be a array, or invalid parameters!!)", caller_script);
                 return 0;
             }
             return 1;

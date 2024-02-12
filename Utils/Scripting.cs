@@ -12,7 +12,7 @@ namespace discordamx.Utils
     {
         public static DiscordMember ScrMemberID_DCMember(int _id, discordamx.Scripting.Guild _gld)
         {
-            discordamx.Scripting.Member mbr_ = null;
+            discordamx.Scripting.Member mbr_ = null!;
             foreach (discordamx.Scripting.Member mbr in _gld.m_ScriptMembers)
             {
                 if (mbr.m_ID == _id) return mbr.m_DiscordMember;
@@ -22,7 +22,7 @@ namespace discordamx.Utils
 
         public static int ScrMemberDCMember_ID(DiscordUser _member, discordamx.Scripting.Guild _gld)
         {
-            discordamx.Scripting.Member mbr_ = null;
+            discordamx.Scripting.Member mbr_ = null!;
 
             foreach (discordamx.Scripting.Member mbr in _gld.m_ScriptMembers)
             {
@@ -39,7 +39,7 @@ namespace discordamx.Utils
 
         public static discordamx.Scripting.Member DCMember_ScrMember(DiscordMember _member, discordamx.Scripting.Guild _gld)
         {
-            discordamx.Scripting.Member mbr_ = null;
+            discordamx.Scripting.Member mbr_ = null!;
             foreach (discordamx.Scripting.Member mbr in _gld.m_ScriptMembers)
             {
                 if (mbr.m_DiscordMember.Equals(_member)) return mbr;
@@ -49,7 +49,7 @@ namespace discordamx.Utils
 
         public static discordamx.Scripting.Member DCMember_ScrMember(DiscordUser _member, discordamx.Scripting.Guild _gld)
         {
-            discordamx.Scripting.Member mbr_ = null;
+            discordamx.Scripting.Member mbr_ = null!;
             foreach (discordamx.Scripting.Member mbr in _gld.m_ScriptMembers)
             {
                 if (mbr.m_DiscordMember.Equals(_member)) return mbr;
@@ -66,12 +66,12 @@ namespace discordamx.Utils
                     return mbr;
                 }
             }
-            return null;
+            return null!;
         }
 
         public static DiscordGuild ScrGuild_DCGuild(int _guild)
         {
-            DiscordGuild mbr_ = null;
+            DiscordGuild mbr_ = null!;
             foreach (discordamx.Scripting.Guild mbr in Program.m_ScriptGuilds)
             {
                 if (mbr.m_ID == _guild)

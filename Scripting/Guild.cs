@@ -10,7 +10,7 @@ namespace discordamx.Scripting
     {
         public int m_ID;
         public DiscordGuild m_DCGuild;
-        public List<Scripting.Member> m_ScriptMembers = null;
+        public List<Scripting.Member> m_ScriptMembers = null!;
 
         public Guild(DiscordGuild _dcg)
         {

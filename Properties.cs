@@ -8,8 +8,8 @@ namespace discordamx
 {
     public class Properties
     {
-        private Dictionary<String, String> list;
-        private String filename;
+        private Dictionary<String, String> list = null!;
+        private String filename = null!;
 
         public Properties(String file)
         {
@@ -22,15 +22,15 @@ namespace discordamx
         }
         public String get(String field)
         {
-            return (list.ContainsKey(field)) ? (list[field]) : (null);
+            return (list.ContainsKey(field)) ? (list[field]) : (null)!;
         }
 
         public void set(String field, Object value)
         {
             if (!list.ContainsKey(field))
-                list.Add(field, value.ToString());
+                list.Add(field, value.ToString()!);
             else
-                list[field] = value.ToString();
+                list[field] = value.ToString()!;
         }
 
         public void Save()

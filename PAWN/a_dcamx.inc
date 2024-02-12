@@ -130,6 +130,7 @@ native DC_DeleteMessage(guildid, channelid[], messageid[], reason[] = '\0');
 native DC_SendEmbeddedImage(guildid = -1, channelid[], image_url[], title[], description[], out_id[] = '\0'); //THIS FUNCTION WORKS FOR THREADS, DMs and TEXT CHANNELS!
 native DC_MessageValid(guildid = -1, channeldid[], messageid[]);
 
+//         - Embeds 
 native DC_NewEmbedBuilder(title[], text[]); //THIS FUNCTION WORKS FOR THREADS, DMs and TEXT CHANNELS!
 native DC_SetEmbedAuthor(embedid, author[], url[] = '\0');
 native DC_SetEmbedFooter(embedid, footer_text[], icon_url[] = '\0');

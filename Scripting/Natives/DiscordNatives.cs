@@ -15,18 +15,18 @@ namespace discordamx.Scripting.Natives
 
                 if (String.IsNullOrEmpty(args1[0].AsString()))
                 {
-                    Log.Error("DC_SetActivityText -> argument 1 is empty! (choose from 0-3)", caller_script);
+                    Program.m_Logger.Error("DC_SetActivityText -> argument 1 is empty! (choose from 0-3)", caller_script);
                     return 0;
                 }
                 if (args1[1].AsInt32() > 2 || args1[1].AsInt32() < 0)
                 {
-                    Log.Error("DC_SetActivityText -> argument 2 is invalid number! (choose from 0-3)", caller_script);
+                    Program.m_Logger.Error("DC_SetActivityText -> argument 2 is invalid number! (choose from 0-3)", caller_script);
                     return 0;
                 }
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
             }
             var act = new DiscordActivity();
             act.Name = args1[0].AsString();
@@ -82,15 +82,15 @@ namespace discordamx.Scripting.Natives
         public static int DC_AddReaction(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if (args1.Length != 4) return 0;
-            DiscordGuild guild = null;
+            DiscordGuild guild = null!;
             try
             {
                 guild = Utils.Scripting.ScrGuild_DCGuild(args1[0].AsInt32());
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_AddReaction' (Invalid guildid?)" + caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_AddReaction' (Invalid guildid?)" + caller_script);
             }
 
             DiscordChannel dc = Discord.Bot.Client.GetChannelAsync(Convert.ToUInt64(args1[1].AsString())).Result;
@@ -102,15 +102,15 @@ namespace discordamx.Scripting.Natives
         public static int DC_RemoveReaction(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if (args1.Length != 4) return 0;
-            DiscordGuild guild = null;
+            DiscordGuild guild = null!;
             try
             {
                 guild = Utils.Scripting.ScrGuild_DCGuild(args1[0].AsInt32());
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_RemoveReaction' (Invalid guildid?)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_RemoveReaction' (Invalid guildid?)", caller_script);
             }
 
             DiscordChannel dc = Discord.Bot.Client.GetChannelAsync(Convert.ToUInt64(args1[1].AsString())).Result;
@@ -131,8 +131,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_DeletPrivateReaction' (Invalid PM channel, wrong ID format)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_DeletPrivateReaction' (Invalid PM channel, wrong ID format)", caller_script);
             }
             return 0;
         }
@@ -148,8 +148,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_RemovePrivateReaction' (Invalid PM channel, wrong ID format)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_RemovePrivateReaction' (Invalid PM channel, wrong ID format)", caller_script);
             }
             return 0;
         }

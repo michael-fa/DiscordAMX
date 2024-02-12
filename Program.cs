@@ -1,4 +1,5 @@
-﻿using discordamx.Scripting;
+﻿using discordamx.Plugin;
+using discordamx.Scripting;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using System.Runtime.InteropServices;
@@ -17,9 +18,10 @@ namespace discordamx
         private static bool                                 m_Setup = false;
         public static DiscordConfiguration                  dConfig = null!;
         public static bool                                  m_ScriptingInited = false;
-        public static List<DiscordChannel>                  m_DmUsers = null;
-        public static List<Scripting.DiscordEmbedBuilder>   m_Embeds = null;
+        public static List<DiscordChannel>                  m_DmUsers = null!;
+        public static List<Scripting.DiscordEmbedBuilder>   m_Embeds = null!;
         public static List<Scripting.Guild>                 m_ScriptGuilds = null!;
+        public static Logger m_Logger = null!;
 
 
         [DllImport("Kernel32")]
@@ -55,15 +57,11 @@ namespace discordamx
 
         static void Main(string[] args)
         {
-
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/"))
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Scripts/");
-
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Logs/"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs/");
-
-            if (!File.Exists(@Environment.CurrentDirectory + "/Logs/" + Log.fileName))
-                File.Create(@Environment.CurrentDirectory + "/Logs/" + Log.fileName);
+            m_Logger =  new Logger();
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/"))
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Scripts/");
 
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Plugins/"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Plugins/");
@@ -97,6 +95,9 @@ namespace discordamx
             {
                 Manager.UnloadScript(script);
             }
+
+            PluginLoader.UnloadPlugins(); //Really just calls OnUnload and we hope they clean up their shit themselves.
+
             Console.ForegroundColor = m_DefForegrColor;
             Environment.Exit(errcode);
         }

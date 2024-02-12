@@ -15,8 +15,8 @@ namespace discordamx.Discord
     public static class Bot
     {
         public static DiscordClient Client { get; private set; }
-        public static InteractivityExtension Interactivity { get; private set; }
-        public static CommandsNextExtension Commands { get; private set; }
+        //public static InteractivityExtension Interactivity { get; private set; }
+        //public static CommandsNextExtension Commands { get; private set; }
         
 
 
@@ -32,7 +32,7 @@ namespace discordamx.Discord
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + ex.Source + "\n" + ex.StackTrace);
-                Log.Exception(ex);
+                Program.m_Logger.Exception(ex);
                 Program.StopEverything();
             }
 
@@ -85,7 +85,7 @@ namespace discordamx.Discord
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + ex.Source + "\n" + ex.StackTrace + ex.InnerException);
-                Log.Exception(ex);
+                Program.m_Logger.Exception(ex);
                 Program.StopEverything();
             }
 

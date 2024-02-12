@@ -18,8 +18,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetGuildName' (dest_string must be a array, or invalid parameters!)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetGuildName' (dest_string must be a array, or invalid parameters!)", caller_script);
             }
             return 1;
         }
@@ -32,7 +32,7 @@ namespace discordamx.Scripting.Natives
         public static int DC_GetMemberCount(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if (args1.Length != 1) return 0;
-            DiscordGuild guild = null;
+            DiscordGuild guild = null!;
             try
             {
                 guild = Utils.Scripting.ScrGuild_DCGuild(args1[0].AsInt32());
@@ -54,11 +54,10 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetMemberCount' (Invalid guildid?)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetMemberCount' (Invalid guildid?)", caller_script);
                 return 0;
             }
-            return 0;
         }
         
     }

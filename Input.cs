@@ -29,7 +29,7 @@ namespace discordamx
                     else
                     {
                         //Call OnConsoleInput for every script
-                        AMXPublic p = null;
+                        AMXPublic p = null!;
                         foreach (Script scr in Scripting.Manager.m_Scripts)
                         {
                             p = scr.m_Amx.FindPublic("OnConsoleInput");
@@ -39,7 +39,7 @@ namespace discordamx
                                 p.Execute();
                                 p.AMX.Release(tmp1);
                             }
-                            p = null;
+                            p = null!;
                         }
                     }
 

@@ -39,11 +39,11 @@ namespace discordamx
             Console.ForegroundColor = ConsoleColor.Yellow;
 #if DEBUG
 
-            Log.Warning(" RUNNING IN DEBUG MODE with user " + Environment.UserName);
+            Program.m_Logger.Warning(" RUNNING IN DEBUG MODE with user " + Environment.UserName);
 #endif
             Console.ForegroundColor = ConsoleColor.White;
 
-            Log.Info(" -> DiscordAMX BETA 2 © 2024 - www.fanter.eu <-");
+            Program.m_Logger.Write(" -> DiscordAMX BETA 2 © 2024 - www.fanter.eu <-");
            
 
             //Environment - Set the OS
@@ -51,8 +51,8 @@ namespace discordamx
             else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) m_isLinux = true;
             else StopEverything();
 
-            if (m_isWindows) Log.Info("INIT: -> Running on Windows.");
-            else if (m_isLinux) Log.Info("INIT: Running on Linux. (Make sure you are always up to date!");
+            if (m_isWindows) Program.m_Logger.Write("INIT: -> Running on Windows.");
+            else if (m_isLinux) Program.m_Logger.Write("INIT: Running on Linux. (Make sure you are always up to date!");
 
             //Handle commands.
             Console.CancelKeyPress += delegate {
@@ -103,7 +103,7 @@ namespace discordamx
                 Bot.RunAsync(dConfig).GetAwaiter().GetResult();
 
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Log.Debug("Waiting for first guild data download to finish..");
+                Program.m_Logger.Debug("Waiting for first guild data download to finish..");
                 while (!Program.m_ScriptingInited)
                 {
                     Thread.Sleep(900);   

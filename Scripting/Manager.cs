@@ -16,7 +16,6 @@ namespace discordamx.Scripting
 {
     static class Manager
     {
-        private static bool m_Inited;
         public static List<Script> m_Scripts = new List<Script>();
 
         public static void LoadFiles()
@@ -43,7 +42,7 @@ namespace discordamx.Scripting
                     scr = new Script(x);
                     scr.m_Hash = _hash;
                     m_Scripts.Add(scr);
-                    Log.Debug("Loaded Script " + x + " with hash =  " + BitConverter.ToString(scr.m_Hash).Replace("-", "").ToLowerInvariant() + "!");
+                    Program.m_Logger.Debug("Loaded Script " + x + " with hash =  " + BitConverter.ToString(scr.m_Hash).Replace("-", "").ToLowerInvariant() + "!");
                     if (first == 0) scr.m_Amx.ExecuteMain(); //Only for the first file.
 
                     first = 1;
@@ -52,7 +51,7 @@ namespace discordamx.Scripting
                 }
                 catch (Exception ex)
                 {
-                    Log.Exception(ex);
+                    Program.m_Logger.Exception(ex);
                 }
 
 
@@ -60,7 +59,7 @@ namespace discordamx.Scripting
             }
             if(first == 0)
             {
-                Log.Error("No amx script found to execute!");
+                Program.m_Logger.Error("No amx script found to execute!");
                 Thread.Sleep(5000);
                 Program.StopEverything(0);
             }

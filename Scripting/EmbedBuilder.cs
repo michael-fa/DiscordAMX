@@ -12,7 +12,7 @@ namespace discordamx.Scripting
         private DSharpPlus.Entities.DiscordEmbedBuilder m_Builder;
         public int m_ID;
         bool disposed = false;
-        public DiscordMessage m_MessageID;
+        public DiscordMessage m_MessageID = null!;
 
         public DiscordEmbedBuilder(string szTitle, string szDescription = "")
         {
@@ -32,7 +32,7 @@ namespace discordamx.Scripting
             m_Builder.WithThumbnail(szUrl, iH, iW);
         }
 
-        public void SetAuthor(string szAuthor, string szUrl = null)
+        public void SetAuthor(string szAuthor, string szUrl = null!)
         {
             m_Builder.WithAuthor(szAuthor, szUrl);
         }
@@ -76,7 +76,7 @@ namespace discordamx.Scripting
             }
             catch (Exception ex)
             {
-                return null;
+                return null!;
             }
         }
 
@@ -89,7 +89,7 @@ namespace discordamx.Scripting
             }
             catch (Exception ex)
             {
-                return null;
+                return null!;
             }
         }
 

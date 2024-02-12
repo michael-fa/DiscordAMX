@@ -9,7 +9,7 @@ namespace DcAmxTestPlugin
     {
         public void Initialize()
         {
-            Log.Info("Plugin Example by 'name here' has been loaded.");
+            Program.m_Logger.Write("Plugin Example by 'name here' has been loaded.");
         }
 
         public string[] GetNatives()
@@ -32,6 +32,11 @@ namespace DcAmxTestPlugin
         {
             Console.WriteLine("Rain is wet. Water is wet. Wet is moisture. Moisture is hydration. Hydration is good.    ");
             return 1;
+        }
+
+        public void OnUnload()
+        {
+
         }
     }
 }

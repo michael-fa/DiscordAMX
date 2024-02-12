@@ -62,7 +62,7 @@ namespace discordamx.Discord.Events
                     if (p != null)
                     {
                         var tmp2 = p.AMX.Push(arg.Message.Content);
-                        Log.Debug("==============================\nContent is " + arg.Channel.GetMessageAsync(arg.Message.Id).Result.Content);
+                        Program.m_Logger.Debug("==============================\nContent is " + arg.Channel.GetMessageAsync(arg.Message.Id).Result.Content);
                         var tmp3 = p.AMX.Push(arg.Message.Id.ToString());
                         p.AMX.Push(Utils.Scripting.ScrMemberDCMember_ID(arg.Author, Utils.Scripting.DCGuild_ScrGuild(arg.Guild)));
                         var tmp = p.AMX.Push(arg.Message.ChannelId.ToString());
@@ -111,7 +111,7 @@ namespace discordamx.Discord.Events
             if (arg.Message.Content == null) return Task.CompletedTask;
             if (arg.Channel.IsPrivate)
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnPrivateMessageUpdated");
@@ -145,7 +145,7 @@ namespace discordamx.Discord.Events
                         }
                            
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Channel.Type == ChannelType.Text)
@@ -154,7 +154,7 @@ namespace discordamx.Discord.Events
                 
                 if (arg.Message == null) return Task.CompletedTask;
 
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnChannelMessageUpdated");
@@ -196,7 +196,7 @@ namespace discordamx.Discord.Events
             }
             else if (arg.Channel.Type == ChannelType.PublicThread)
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnThreadMessageUpdated");
@@ -238,7 +238,7 @@ namespace discordamx.Discord.Events
                         }
                         
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             return Task.CompletedTask;
@@ -275,12 +275,12 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp2);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Message.Channel.Type == ChannelType.Text)
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnChannelMessageDeleted");
@@ -294,12 +294,12 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp2);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Channel.Type == ChannelType.PublicThread)
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnThreadMessageDeleted");
@@ -315,7 +315,7 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp3);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             return Task.CompletedTask;
@@ -335,7 +335,7 @@ namespace discordamx.Discord.Events
                     Program.m_DmUsers.Add((DiscordDmChannel)arg.Channel);
 
 
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnPrivateReactionAdded");
@@ -354,12 +354,12 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp3);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Message.Channel.Type == ChannelType.Text)
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnReactionAdded");
@@ -378,12 +378,12 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp3);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Channel.Type == ChannelType.PublicThread)
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnThreadMessageReactionAdded");
@@ -404,7 +404,7 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp4);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
 
@@ -416,7 +416,7 @@ namespace discordamx.Discord.Events
             if (Utils.UserBans.IsBanned(arg.User.Id.ToString())) return Task.CompletedTask;
             //If the trigger was the bot itself, skip calling the public 
             if (arg.User == Discord.Bot.Client.CurrentUser) return Task.CompletedTask;
-            AMXPublic p = null;
+            AMXPublic p = null!;
             //Is private channel?
             if (arg.Message.Channel.IsPrivate)
             {
@@ -443,7 +443,7 @@ namespace discordamx.Discord.Events
 
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Message.Channel.Type == ChannelType.Text)
@@ -467,7 +467,7 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             else if (arg.Channel.Type == ChannelType.PublicThread)
@@ -493,7 +493,7 @@ namespace discordamx.Discord.Events
                         p.AMX.Release(tmp);
                         GC.Collect();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
 

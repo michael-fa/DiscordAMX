@@ -25,7 +25,7 @@ namespace discordamx.Scripting.Natives
                     {
                         if (dtc.Id == Convert.ToUInt64(args1[1].AsString()))
                         {
-                            DiscordMessage msg = null;
+                            DiscordMessage msg = null!;
                             msg = dtc.GetMessageAsync(Convert.ToUInt64(args1[2].AsString())).Result;
                             if (msg != null)
                             {
@@ -55,8 +55,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_DeleteMessage' (Invalid Channel ID, wrong ID format, or you have not the right role permissions)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_DeleteMessage' (Invalid Channel ID, wrong ID format, or you have not the right role permissions)", caller_script);
             }
             return 1;
         }
@@ -66,7 +66,7 @@ namespace discordamx.Scripting.Natives
             if (args1.Length < 5) return 0;
 
             DiscordGuild guild = Utils.Scripting.ScrGuild_DCGuild(args1[0].AsInt32());
-            DiscordMessage msg = null;
+            DiscordMessage msg = null!;
             try
             {
                 if (guild == null)
@@ -120,8 +120,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_SendEmbeddedImage' (Invalid Channel, wrong ID format, or you have not the right role permissions)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_SendEmbeddedImage' (Invalid Channel, wrong ID format, or you have not the right role permissions)", caller_script);
             }
 
             return 1;
@@ -138,7 +138,7 @@ namespace discordamx.Scripting.Natives
         {
             if (args1.Length < 2) return 0;
             if (args1[1].AsString().Length == 0) return 0;
-            string _Url = null;
+            string _Url = null!;
             if (args1.Length > 1) _Url = args1[2].AsString();
             foreach (Scripting.DiscordEmbedBuilder x in Program.m_Embeds)
             {
@@ -154,7 +154,7 @@ namespace discordamx.Scripting.Natives
         {
             if (args1.Length < 2) return 0;
             if (args1[1].AsString().Length == 0) return 0;
-            string _Url = null;
+            string _Url = null!;
             if (args1.Length > 1) _Url = args1[2].AsString();
             foreach (Scripting.DiscordEmbedBuilder x in Program.m_Embeds)
             {
@@ -170,7 +170,7 @@ namespace discordamx.Scripting.Natives
         {
             if (args1.Length != 2) return 0;
             if (args1[1].AsString().Length == 0) return 0;
-            string _Url = null;
+            string _Url = null!;
             if (args1.Length > 1) _Url = args1[2].AsString();
             foreach (Scripting.DiscordEmbedBuilder x in Program.m_Embeds)
             {
@@ -186,7 +186,7 @@ namespace discordamx.Scripting.Natives
         {
             if (args1.Length != 2) return 0;
             if (args1[1].AsString().Length == 0) return 0;
-            string _Url = null;
+            string _Url = null!;
             if (args1.Length > 1) _Url = args1[2].AsString();
             foreach (Scripting.DiscordEmbedBuilder x in Program.m_Embeds)
             {
@@ -295,7 +295,7 @@ namespace discordamx.Scripting.Natives
         {
             if (args1.Length < 3) return 0;
             if (args1[2].AsString().Length == 0) return 0;
-            DiscordChannel channel = null;
+            DiscordChannel channel = null!;
             if (args1[1].AsInt32() == 0)
             {
                 DiscordGuild guild = Utils.Scripting.ScrGuild_DCGuild(args1[1].AsInt32());
@@ -351,7 +351,7 @@ namespace discordamx.Scripting.Natives
             try
             {
                 var channel = guild.GetChannel(Convert.ToUInt64(args1[1].AsString()));
-                DiscordMessage msg = null;
+                DiscordMessage msg = null!;
                 //null exception; are we looking for an thread?
                 if (channel == null)
                 {
@@ -370,8 +370,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_SendChannelMessage' (Invalid Channel, wrong ID format, or you have not the right role permissions)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_SendChannelMessage' (Invalid Channel, wrong ID format, or you have not the right role permissions)", caller_script);
             }
             return 1;
         }
@@ -391,8 +391,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_SendPrivateMessage' (Invalid pm channel, wrong ID format)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_SendPrivateMessage' (Invalid pm channel, wrong ID format)", caller_script);
                 return 0;
             }
             return 1;
@@ -419,8 +419,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_DeletePrivateMessage' (MESSAGE NOT FOUND, Invalid pm channel, wrong ID format)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_DeletePrivateMessage' (MESSAGE NOT FOUND, Invalid pm channel, wrong ID format)", caller_script);
                 return 0;
             }
             return 1;
@@ -447,7 +447,7 @@ namespace discordamx.Scripting.Natives
                         {
                             if (dtc.Id == Convert.ToUInt64(args1[1].AsString()))
                             {
-                                DiscordMessage msg = null;
+                                DiscordMessage msg = null!;
                                 msg = dtc.GetMessageAsync(Convert.ToUInt64(args1[2].AsString())).Result;
                                 if (msg == null) continue;
                                 else return 1;
@@ -465,8 +465,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_MessageValid' (Invalid Channel ID, wrong ID format)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_MessageValid' (Invalid Channel ID, wrong ID format)", caller_script);
             }
             return 0;
         }
@@ -504,8 +504,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_FindChannel'", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_FindChannel'", caller_script);
                 return 0;
             }
             return 0;
@@ -528,8 +528,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_FindThread'", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_FindThread'", caller_script);
                 return 0;
             }
             return 0;
@@ -559,8 +559,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script); 
-                Log.Error("In native 'DC_GetChannelName'", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetChannelName'", caller_script);
                 return 0;
             }
             return 0;
@@ -581,8 +581,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetChannelTopic'", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetChannelTopic'", caller_script);
                 return 0;
             }
             return 0;
@@ -618,8 +618,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetChannelMention'", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetChannelMention'", caller_script);
                 return 0;
             }
             return 0;
@@ -646,8 +646,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetChannelType'", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetChannelType'", caller_script);
                 return 0;
             }
         }
@@ -667,7 +667,7 @@ namespace discordamx.Scripting.Natives
                 if (args1[1].AsString().Length == 0 || args1[3].AsString().Length == 0) return 0;
                 if (args1[2].AsInt32() > 7 || args1[2].AsInt32() < 0) return 0;
 
-                DiscordChannel pdc = null;
+                DiscordChannel pdc = null!;
                 foreach (DiscordChannel x in guild.Channels.Values)
                 {
                     if (x.Id == Convert.ToUInt64(args1[3].AsString()))
@@ -681,8 +681,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_CreateChannel' ", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_CreateChannel' ", caller_script);
                 return 0;
             }
             return 1;
@@ -697,7 +697,7 @@ namespace discordamx.Scripting.Natives
             {
                 if (args1[1].AsString().Length == 0) return 0;
 
-                DiscordChannel pdc = null;
+                DiscordChannel pdc = null!;
                 foreach (DiscordChannel x in guild.Channels.Values)
                 {
                     if (x.Id.ToString().Equals(args1[1].AsString()))
@@ -712,8 +712,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_DeleteChannel' ", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_DeleteChannel' ", caller_script);
                 return 0;
             }
             return 1;

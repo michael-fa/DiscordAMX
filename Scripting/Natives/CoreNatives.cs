@@ -11,13 +11,13 @@ namespace discordamx.Scripting.Natives
             if (args1.Length != 1) return 0;
             if (args1[0].AsString().Length == 0)
             {
-                Log.Error(" [command] You did not specify a correct script file!", caller_script);
+                Program.m_Logger.Error(" [command] You did not specify a correct script file!", caller_script);
                 return 0;
             }
 
             if (!File.Exists("Scripts/" + args1[0].AsString() + ".amx"))
             {
-                Log.Error(" [command] The script file " + args1[0].AsString() + ".amx does not exist in /Scripts/ folder.", caller_script);
+                Program.m_Logger.Error(" [command] The script file " + args1[0].AsString() + ".amx does not exist in /Scripts/ folder.", caller_script);
                 return 0;
             }
 
@@ -25,7 +25,7 @@ namespace discordamx.Scripting.Natives
             {
                 if (x.m_amxFile.Equals(args1[0].AsString())) //There is a better way, but still; we can always do or catch a unhandled error here.
                 {
-                    Log.Error(" [command] Script " + args1[0].AsString() + " is already loaded!");
+                    Program.m_Logger.Error(" [command] Script " + args1[0].AsString() + " is already loaded!");
                     return 0;
                 }
             }
@@ -42,7 +42,7 @@ namespace discordamx.Scripting.Natives
             if (args1.Length != 1) return 1;
             if (args1[0].AsString().Length == 0)
             {
-                Log.Error(" [command] You did not specify a correct script file!");
+                Program.m_Logger.Error(" [command] You did not specify a correct script file!");
                 return 0;
             }
 
@@ -53,13 +53,13 @@ namespace discordamx.Scripting.Natives
                     AMXPublic pub = sc.m_Amx.FindPublic("OnUnload");
                     if (pub != null) pub.Execute();
                     sc.m_Amx.Dispose();
-                    sc.m_Amx = null;
+                    sc.m_Amx = null!;
                     Scripting.Manager.m_Scripts.Remove(sc);
-                    Log.Info("[CORE] Script '" + args1[0].AsString() + "' unloaded.");
+                    Program.m_Logger.Write("[CORE] Script '" + args1[0].AsString() + "' unloaded.");
                     return 1;
                 }
             }
-            Log.Error(" [command] The script '" + args1[0].AsString() + "' is not running.");
+            Program.m_Logger.Error(" [command] The script '" + args1[0].AsString() + "' is not running.");
             return 1;
         }
 
@@ -136,7 +136,7 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex);
+                Program.m_Logger.Exception(ex);
             }
             return 1;
         }
@@ -204,8 +204,8 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, caller_script);
-                Log.Error("In native 'DC_GetBotPing'! (m_Discord->Client NullReference)", caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
+                Program.m_Logger.Error("In native 'DC_GetBotPing'! (m_Discord->Client NullReference)", caller_script);
             } 
             return 1;
         }

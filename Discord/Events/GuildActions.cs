@@ -25,7 +25,7 @@ namespace discordamx.Discord.Events
             //Getting the first and only discord ID (for now)
             if (a.Guilds.Count == 0)
             {
-                Log.Info("There are currently no servers available. Standing by.");
+                Program.m_Logger.Write("There are currently no servers available. Standing by.");
                 return Task.CompletedTask;
             }
 
@@ -76,7 +76,7 @@ namespace discordamx.Discord.Events
             if (!Program.m_ScriptingInited) return Task.CompletedTask;
             try
             {
-                AMXPublic p = null;
+                AMXPublic p = null!;
                 foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                 {
                     p = scr.m_Amx.FindPublic("OnGuildAdded");
@@ -85,12 +85,12 @@ namespace discordamx.Discord.Events
                         p.AMX.Push(Utils.Scripting.DCGuild_ScrGuild(a.Guild).m_ID);
                         p.Execute();
                     }
-                    p = null;
+                    p = null!;
                 }
             }
             catch (Exception ex)
             {
-                Log.Exception(ex);
+                Program.m_Logger.Exception(ex);
             }
 
 
@@ -99,7 +99,7 @@ namespace discordamx.Discord.Events
 
         public static Task GuildRemoved(DiscordClient c, GuildDeleteEventArgs a)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnGuildRemoved");
@@ -110,7 +110,7 @@ namespace discordamx.Discord.Events
                     p.Execute();
                     p.AMX.Release(tmp1);
                 }
-                p = null;
+                p = null!;
             }
 
 
@@ -121,7 +121,7 @@ namespace discordamx.Discord.Events
 
         public static Task ChannelCreated(DiscordClient c, ChannelCreateEventArgs a)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnChannelCreated");
@@ -133,14 +133,14 @@ namespace discordamx.Discord.Events
                     p.Execute();
                     p.AMX.Release(tmp1);
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
 
         public static Task ChannelUpdated(DiscordClient c, ChannelUpdateEventArgs a)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnChannelUpdated");
@@ -151,14 +151,14 @@ namespace discordamx.Discord.Events
                     p.Execute();
                     p.AMX.Release(tmp1);
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
 
         public static Task ChannelDeleted(DiscordClient c, ChannelDeleteEventArgs a)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnChannelDeleted");
@@ -170,7 +170,7 @@ namespace discordamx.Discord.Events
                     p.Execute();
                     p.AMX.Release(tmp1);
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
@@ -180,7 +180,7 @@ namespace discordamx.Discord.Events
         {
             // if (!a.NewlyCreated) return Task.CompletedTask;
 
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnThreadCreated");
@@ -194,7 +194,7 @@ namespace discordamx.Discord.Events
                     p.AMX.Release(tmp2);
                     p.AMX.Release(tmp3);
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
@@ -203,7 +203,7 @@ namespace discordamx.Discord.Events
         {
             // if (!a.NewlyCreated) return Task.CompletedTask;
 
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnThreadDeleted");
@@ -217,14 +217,14 @@ namespace discordamx.Discord.Events
                     p.AMX.Release(tmp2);
                     p.AMX.Release(tmp3);
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
 
         public static Task ThreadUpdated(DiscordClient c, ThreadUpdateEventArgs a)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnThreadUpdated");
@@ -240,7 +240,7 @@ namespace discordamx.Discord.Events
                     p.AMX.Release(tmp3);
                     p.AMX.Release(tmp4);
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
@@ -256,7 +256,7 @@ namespace discordamx.Discord.Events
                 foreach (DiscordThreadChannelMember mem in a.AddedMembers)
                 {
                     //Basically call the AMX public for each new member. (Another loop since we do this for all scripts loaded, obviously..)
-                    AMXPublic p = null;
+                    AMXPublic p = null!;
                     foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                     {
                         p = scr.m_Amx.FindPublic("OnThreadMemberJoined"); //<-- call it every time
@@ -270,7 +270,7 @@ namespace discordamx.Discord.Events
                             p.AMX.Release(tmp2);
                             p.AMX.Release(tmp3);
                         }
-                        p = null;
+                        p = null!;
                     }
                 }
             }
@@ -281,7 +281,7 @@ namespace discordamx.Discord.Events
                 foreach (DiscordThreadChannelMember mem in a.AddedMembers)
                 {
                     //Calling the amx public for every member removed. This assures handling each one scriptsided.
-                    AMXPublic p = null;
+                    AMXPublic p = null!;
                     foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
                     {
                         p = scr.m_Amx.FindPublic("OnThreadMemberLeft"); //<-- call it for each removed member
@@ -295,7 +295,7 @@ namespace discordamx.Discord.Events
                             p.AMX.Release(tmp2);
                             p.AMX.Release(tmp3);
                         }
-                        p = null;
+                        p = null!;
                     }
                 }
             }
@@ -305,7 +305,7 @@ namespace discordamx.Discord.Events
 
         public static Task GuildUpdated(DiscordClient c, GuildUpdateEventArgs arg)
         {
-            AMXPublic p = null;
+            AMXPublic p = null!;
             foreach (Scripting.Script scr in Scripting.Manager.m_Scripts)
             {
                 p = scr.m_Amx.FindPublic("OnGuildUpdated");
@@ -322,7 +322,7 @@ namespace discordamx.Discord.Events
                     p.AMX.Release(tmp1);
                     GC.Collect();
                 }
-                p = null;
+                p = null!;
             }
             return Task.CompletedTask;
         }
