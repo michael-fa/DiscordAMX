@@ -24,6 +24,7 @@ namespace discordamx.Discord.Events
             {
                 AMXPublic p = Scripting.Manager.m_Scripts[0].m_Amx.FindPublic("OnHeartbeat");
 
+                if(p.AMX == null)return Task.FromResult(0);
                 if (p != null)
                 {
                     p.AMX.Push(e.Ping);
