@@ -11,6 +11,7 @@ namespace DiscordAmxPlugin
         void Initialize();
         string[] GetNatives();
         string GetName();
+        public void OnUnload();
 
     }
 }

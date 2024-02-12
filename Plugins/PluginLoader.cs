@@ -16,10 +16,8 @@ namespace discordamx.Plugin
             plugins = new List<IPlugin>();
 
             await Task.Run(() => {
-                while(Scripting.Manager.m_Scripts.Count == 0)
-                {
-                    Thread.Sleep(100);
-                }
+                //this is somewhat stupid I am sorry otherwise it would lock up
+               
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Plugins"))
                 {
                     string[] dllFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Plugins/", "*.dll");
@@ -47,6 +45,23 @@ namespace discordamx.Plugin
                         }
                     }
                 }
+
+                int count = 0;
+                while (plugins.Count == 0 && count < 10)
+                {
+                    Thread.Sleep(100);
+                }
+            });
+        }
+        static public async void UnloadPlugins()
+        {
+            await Task.Run(() => {
+                if (plugins.Count == 0) return;
+                foreach (var plugin in plugins)
+                {
+                    plugin.OnUnload();
+                }
+                //All this assembly proxy appdomain shit is for later. I guess you can catch a shutdown from inside the plugin code somehow \0/
             });
         }
     }
