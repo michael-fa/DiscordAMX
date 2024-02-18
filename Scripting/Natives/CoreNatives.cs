@@ -1,6 +1,7 @@
 ﻿using AMXWrapperCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace discordamx.Scripting.Natives
 {
@@ -49,7 +50,7 @@ namespace discordamx.Scripting.Natives
             foreach (Script sc in Scripting.Manager.m_Scripts)
             {
                 if (sc.m_amxFile.Equals(args1[0].AsString()))
-                {
+                {   
                     AMXPublic pub = sc.m_Amx.FindPublic("OnUnload");
                     if (pub != null) pub.Execute();
                     sc.m_Amx.Dispose();
@@ -72,8 +73,8 @@ namespace discordamx.Scripting.Natives
                     if (args1[0].AsString().Length < 2)
                         return 0;
 
-                    AMXPublic tmp = null!;
-                    foreach (Script scr in Scripting.Manager.m_Scripts)
+                    AMXPublic tmp = null;
+                    foreach (Script scr in Manager.m_Scripts)
                     {
                         tmp = scr.m_Amx.FindPublic(args1[0].AsString());
                         if (tmp != null) tmp.Execute();
@@ -84,20 +85,20 @@ namespace discordamx.Scripting.Natives
                 {
                     int count = (args1.Length - 1);
 
-                    AMXPublic p = null!;
+                    AMXPublic p = null;
                     List<CellPtr> Cells = new List<CellPtr>();
 
                     //Important so the format ( ex "iissii" ) is aligned with the arguments pushed to the callback, not being reversed
                     string reversed_format = Utils.Scripting.Reverse(args1[1].AsString());
 
-                    foreach (Script scr in Scripting.Manager.m_Scripts)
+                    foreach (Script scr in Manager.m_Scripts)
                     {
                         if (scr.Equals(caller_script)) continue;
                         p = scr.m_Amx.FindPublic(args1[0].AsString());
                         if (p == null) continue;
                         foreach (char x in reversed_format.ToCharArray())
                         {
-                            if (count == 1) break;
+                            //if (count == 1) break;
                             switch (x)
                             {
                                 case 'i':
@@ -141,31 +142,32 @@ namespace discordamx.Scripting.Natives
             return 1;
         }
 
+
         public static int gettimestamp(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             return (Int32)DateTimeOffset.Now.ToUnixTimeSeconds();
         }
 
-        /*public static int SetTimer(AMX amx1, AMXArgumentList args1, Script caller_script)
+        public static int SetTimer(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if (args1[2].AsInt32() > 1 || args1[2].AsInt32() < 0)
             {
-                Log.Error("SetTimer: Argument 'repeating' is boolean. Please pass 0 or 1 only!");
+                Program.m_Logger.Error("SetTimer: Argument 'repeating' is boolean. Please pass 0 or 1 only!");
                 return 0;
             }
 
             try
             {
-                //ScriptTimer timer = new ScriptTimer(args1[1].AsInt32(), Convert.ToBoolean(args1[2].AsInt32()), args1[0].AsString(), caller_script);
+                ScriptTimer timer = new ScriptTimer(args1[1].AsInt32(), Convert.ToBoolean(args1[2].AsInt32()), args1[0].AsString(), caller_script);
             }
             catch (Exception ex)
             {
-                Utils.Log.Exception(ex, caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
             }
             return (Program.m_ScriptTimers.Count);
-        }*/
+        }
 
-        /*public static int SetTimerEx(AMX amx1, AMXArgumentList args1, Script caller_script)
+        public static int SetTimerEx(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if(args1.Length < 5) return 1;
 
@@ -175,10 +177,10 @@ namespace discordamx.Scripting.Natives
             }
             catch (Exception ex)
             {
-                Utils.Log.Exception(ex, caller_script);
+                Program.m_Logger.Exception(ex, caller_script);
             }
             return (Program.m_ScriptTimers.Count);
-        }*/
+        }
 
         /*public static int KillTimer(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
@@ -205,7 +207,7 @@ namespace discordamx.Scripting.Natives
             catch (Exception ex)
             {
                 Program.m_Logger.Exception(ex, caller_script);
-                Program.m_Logger.Error("In native 'DC_GetBotPing'! (m_Discord->Client NullReference)", caller_script);
+                Program.m_Logger.Error("In native 'DC_GetBotPing'! (could be m_Discord->Client Null reference)", caller_script);
             } 
             return 1;
         }

@@ -50,7 +50,7 @@ namespace discordamx.Scripting
         }
 
 
-        /*public void RunTimerCallback(AMXArgumentList m_Args, string m_ArgFrmt, string m_Func)
+        public void RunTimerCallback(AMXArgumentList m_Args, string m_ArgFrmt, string m_Func)
         {
             AMXPublic m_AMXCallback = this.m_Amx.FindPublic(m_Func);
             if (m_AMXCallback == null) return;
@@ -105,20 +105,20 @@ namespace discordamx.Scripting
 
 
 
-                    Utils.Log.Debug("Script-Timer invoked \"" + m_Func + "\" | Format: " + m_ArgFrmt, this);
+                    Program.m_Logger.Debug("Script-Timer invoked \"" + m_Func + "\" | Format: " + m_ArgFrmt, this);
                 }
                 else
                 {
                     //Call without ex arguments
                     m_AMXCallback.Execute();
-                    Utils.Log.Debug("Script-Timer invoked  \"" + m_Func + "\"", this);
+                    Program.m_Logger.Debug("Script-Timer invoked  \"" + m_Func + "\"", this);
                 }
             }
             catch (Exception ex)
             {
-                Utils.Log.Exception(ex, this);
+                Program.m_Logger.Exception(ex, this);
             }
-        }*/
+        }
 
         public bool RegisterNatives()
         {
@@ -127,8 +127,8 @@ namespace discordamx.Scripting
 
             m_Amx.Register("Loadscript", (amx1, args1) => Natives.CoreNatives.Loadscript(amx1, args1, this));
             m_Amx.Register("Unloadscript", (amx1, args1) => Natives.CoreNatives.Unloadscript(amx1, args1, this));
-            //m_Amx.Register("SetTimer", (amx1, args1) => Natives.CoreNatives.SetTimer(amx1, args1, this));
-            //m_Amx.Register("SetTimerEx", (amx1, args1) => Natives.SetTimerEx(amx1, args1, this));
+            m_Amx.Register("SetTimer", (amx1, args1) => Natives.CoreNatives.SetTimer(amx1, args1, this));
+            m_Amx.Register("SetTimerEx", (amx1, args1) => Natives.CoreNatives.SetTimerEx(amx1, args1, this));
             //m_Amx.Register("KillTimer", (amx1, args1) => Natives.CoreNatives.KillTimer(amx1, args1, this));
             m_Amx.Register("gettimestamp", (amx1, args1) => Natives.CoreNatives.gettimestamp(amx1, args1, this));
             m_Amx.Register("CallRemoteFunction", (amx1, args1) => Natives.CoreNatives.CallRemoteFunction(amx1, args1, this));
