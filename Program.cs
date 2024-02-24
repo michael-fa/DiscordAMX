@@ -22,6 +22,7 @@ namespace discordamx
         public static List<Scripting.DiscordEmbedBuilder>   m_Embeds = null!;
         public static List<Scripting.Guild>                 m_ScriptGuilds = null!;
         public static Logger m_Logger = null!;
+        public static List<ScriptTimer> m_ScriptTimers = null!;
 
 
         [DllImport("Kernel32")]

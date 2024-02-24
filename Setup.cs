@@ -32,6 +32,7 @@ namespace discordamx
 
 
             Program.m_ScriptGuilds = new List<Scripting.Guild>();
+            Program.m_ScriptTimers = new List<Scripting.ScriptTimer>();
             
             m_DmUsers = new List<DiscordChannel>();
             Program.m_Embeds = new List<Scripting.DiscordEmbedBuilder>();

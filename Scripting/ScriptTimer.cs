@@ -26,23 +26,23 @@ namespace discordamx.Scripting
         {
             m_ParentScript = arg_parent_Script;
             m_AMXCallback = m_ParentScript.m_Amx.FindPublic(funcCall);
-            if (m_AMXCallback == null)
+            if (m_AMXCallback == null  || m_Func != null! || m_Timer == null || m_ArgFrmt == null)
             {
                 return;
             }
-            m_msWait = interval;
-            m_Func = funcCall;
-            m_Active = true;
-            m_Repeat = rep;
-            m_ArgFrmt = _ArgsFrm;
-            m_Args = _args;
+            m_msWait = interval!;
+            m_Func = funcCall!;
+            m_Active = true!;
+            m_Repeat = rep!;
+            m_ArgFrmt = _ArgsFrm!;
+            m_Args = _args!;
 
 
             Program.m_ScriptTimers.Add(this);
             this.ID = Program.m_ScriptTimers.Count;
 
             System.Threading.TimerCallback TimerDelegate =
-            new System.Threading.TimerCallback(OnTimedEvent);
+            new System.Threading.TimerCallback(OnTimedEvent!);
 
 
             m_Timer = new System.Threading.Timer(TimerDelegate, null, m_msWait, m_msWait);
@@ -61,7 +61,6 @@ namespace discordamx.Scripting
             m_Func = funcCall;
             m_Active = true;
             m_Repeat = rep;
-            //m_ArgFrmt = "Cx00A01"; //Identify later as no timerex.
 
 
 
@@ -69,7 +68,7 @@ namespace discordamx.Scripting
             this.ID = Program.m_ScriptTimers.Count;
 
             System.Threading.TimerCallback TimerDelegate =
-            new System.Threading.TimerCallback(OnTimedEvent);
+            new System.Threading.TimerCallback(OnTimedEvent!);
 
 
             m_Timer = new System.Threading.Timer(TimerDelegate, null, m_msWait, m_msWait);
@@ -81,7 +80,6 @@ namespace discordamx.Scripting
             try
             {
                 m_AMXCallback = m_ParentScript.m_Amx.FindPublic(m_Func);
-                //Utils.Log.Debug("length: " + m_Args.Length + "frmtstr " + m_ArgFrmt);
                 List<CellPtr> _list = new List<CellPtr>();
                 int count = (m_Args.Length -1);
                 if (m_Args.Length != m_ArgFrmt.Length + 4)

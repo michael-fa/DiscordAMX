@@ -81,8 +81,11 @@ namespace discordamx.Scripting.Natives
                     }
                     return 1;
                 }
-                else if (args1.Length >= 3)
+                else if (args1.Length > 3)
                 {
+                    if (args1.Length != args1[1].AsString().Length)
+                        return 1;
+
                     int count = (args1.Length - 1);
 
                     AMXPublic p = null;
@@ -182,7 +185,7 @@ namespace discordamx.Scripting.Natives
             return (Program.m_ScriptTimers.Count);
         }
 
-        /*public static int KillTimer(AMX amx1, AMXArgumentList args1, Script caller_script)
+        public static int KillTimer(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             foreach (ScriptTimer scrt in Program.m_ScriptTimers)
             {
@@ -196,7 +199,7 @@ namespace discordamx.Scripting.Natives
                 }
             }
             return 1;
-        }*/
+        }
 
         public static int DC_GetBotPing(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
