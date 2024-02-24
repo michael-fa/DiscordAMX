@@ -34,10 +34,12 @@ namespace discordamx.Discord.Events
                 p = null!;
             }
 
-            foreach (Scripting.Guild gld in Program.m_ScriptGuilds)
+            var targetGuild = arg.Guild;
+            var relevantGuild = Program.m_ScriptGuilds.FirstOrDefault(gld => gld.m_DCGuild == targetGuild);
+
+            if (relevantGuild != null)
             {
-                if (gld.m_DCGuild != arg.Guild) continue;
-                gld.m_ScriptMembers.Add(new Scripting.Member(arg.Member, gld));
+                relevantGuild.m_ScriptMembers?.Add(new Scripting.Member(arg.Member, relevantGuild));
             }
 
             return Task.CompletedTask;
