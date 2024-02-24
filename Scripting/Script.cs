@@ -129,7 +129,7 @@ namespace discordamx.Scripting
             m_Amx.Register("Unloadscript", (amx1, args1) => Natives.CoreNatives.Unloadscript(amx1, args1, this));
             m_Amx.Register("SetTimer", (amx1, args1) => Natives.CoreNatives.SetTimer(amx1, args1, this));
             m_Amx.Register("SetTimerEx", (amx1, args1) => Natives.CoreNatives.SetTimerEx(amx1, args1, this));
-            //m_Amx.Register("KillTimer", (amx1, args1) => Natives.CoreNatives.KillTimer(amx1, args1, this));
+            m_Amx.Register("KillTimer", (amx1, args1) => Natives.CoreNatives.KillTimer(amx1, args1, this));
             m_Amx.Register("gettimestamp", (amx1, args1) => Natives.CoreNatives.gettimestamp(amx1, args1, this));
             m_Amx.Register("CallRemoteFunction", (amx1, args1) => Natives.CoreNatives.CallRemoteFunction(amx1, args1, this));
             m_Amx.Register("DC_GetBotPing", (amx1, args1) => Natives.CoreNatives.DC_GetBotPing(amx1, args1, this));
