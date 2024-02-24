@@ -3,10 +3,9 @@
 Please read the [Wiki page](https://github.com/michael-fa/DiscordAMX/wiki) for all information.
 This requires some knowledge about the [PAWN](https://www.compuphase.com/pawn/pawn.htm) language.
 
+---
 
 ## Todo
-<br>
---------------
 
 * Test internal user join and leave logic (keeping track of users to make scripting with user ids and guild ids)
 * Forum Support
