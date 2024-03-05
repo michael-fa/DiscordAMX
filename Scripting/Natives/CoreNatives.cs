@@ -176,7 +176,7 @@ namespace discordamx.Scripting.Natives
 
             try
             {
-                ScriptTimer timer = new ScriptTimer(args1[1].AsInt32(), Convert.ToBoolean(args1[2].AsInt32()), args1[0].AsString(), caller_script, args1[3].AsString(), args1);
+                ScriptTimer timer = new ScriptTimer(args1[1].AsInt32(), (bool)Convert.ToBoolean(args1[2].AsInt32()), args1[0].AsString(), caller_script, args1[3].AsString(), args1);
             }
             catch (Exception ex)
             {

@@ -15,9 +15,9 @@ namespace discordamx.Scripting
 {
     public class Script
     {
-        public string                                                m_amxFile = null!;
-        public AMX                                                   m_Amx = null!;
-        public byte[]                                                m_Hash = null!;
+        public string m_amxFile = null!;
+        public AMX m_Amx = null!;
+        public byte[] m_Hash = null!;
         //public static                                                List<Scripting.ScriptTimer> m_ScriptTimers = null!;
 
 
@@ -47,77 +47,6 @@ namespace discordamx.Scripting
                    timer.KillTimer();
                }
             */
-        }
-
-
-        public void RunTimerCallback(AMXArgumentList m_Args, string m_ArgFrmt, string m_Func)
-        {
-            AMXPublic m_AMXCallback = this.m_Amx.FindPublic(m_Func);
-            if (m_AMXCallback == null) return;
-            
-
-            try
-            {
-                if (!m_ArgFrmt.Equals("Cx00A01"))
-                {
-                    int count = (m_Args.Length - 1);
-
-                    List<CellPtr> Cells = new List<CellPtr>();
-
-                    //Important so the format ( ex "iissii" ) is aligned with the arguments pushed to the callback, not being reversed
-                    string reversed_format = Utils.Scripting.Reverse(m_ArgFrmt);
-
-                    foreach (char x in reversed_format.ToCharArray())
-                    {
-                        if (count == 3) break; //stop at the format argument.
-                        Console.WriteLine("Do again: " + count);
-                        switch (x)
-                        {
-                            case 'i':
-                                {
-                                    m_AMXCallback.AMX.Push(4);
-                                    count--;
-                                    continue;
-                                }
-                            case 'f':
-                                {
-                                    m_AMXCallback.AMX.Push((float)m_Args[count].AsCellPtr().Get().AsFloat());
-                                    count--;
-                                    continue;
-                                }
-
-                            case 's':
-                                {
-                                    Cells.Add(m_AMXCallback.AMX.Push(m_Args[count].AsString()));
-                                    count--;
-                                    continue;
-                                }
-                        }
-                    }
-
-                    m_AMXCallback.Execute();
-
-                    foreach (CellPtr cell in Cells)
-                    {
-                        m_AMXCallback.AMX.Release(cell);
-                    }
-                    GC.Collect();
-
-
-
-                    Program.m_Logger.Debug("Script-Timer invoked \"" + m_Func + "\" | Format: " + m_ArgFrmt, this);
-                }
-                else
-                {
-                    //Call without ex arguments
-                    m_AMXCallback.Execute();
-                    Program.m_Logger.Debug("Script-Timer invoked  \"" + m_Func + "\"", this);
-                }
-            }
-            catch (Exception ex)
-            {
-                Program.m_Logger.Exception(ex, this);
-            }
         }
 
         public bool RegisterNatives()
@@ -205,7 +134,7 @@ namespace discordamx.Scripting
                         Console.WriteLine("METHOD: FOUND NATIVE " + x);
                         m_Amx.Register(x, (amx1, args1) =>
                         {
-                            plugin.GetType().GetMethod(x)!.Invoke(plugin, new object[] {amx1, args1, this});
+                            plugin.GetType().GetMethod(x)!.Invoke(plugin, new object[] { amx1, args1, this });
                             //plugin.GetExportedTypes()[0].InvokeMember(x, BindingFlags.InvokeMethod, null, plugin, new object[] { amx1, args1 });
                             return 1;
                         });

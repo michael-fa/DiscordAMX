@@ -50,9 +50,14 @@ namespace discordamx
         }
 
 
-        public static void test(string args)
+        public static void reloadall(string args)
         {
-            Console.WriteLine("Test called. ");
+            foreach (Script script in Manager.m_Scripts)
+            {
+                Manager.UnloadScript(script);
+            }
+
+
         }
 
         public static void clr(string args)
