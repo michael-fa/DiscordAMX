@@ -108,20 +108,20 @@ namespace discordamx.Scripting.Natives
                                     {
                                         p.AMX.Push(args1[count].AsIntPtr());
                                         count--;
-                                        continue;
+                                        break;
                                     }
                                 case 'f':
                                     {
                                         p.AMX.Push((float)args1[count].AsCellPtr().Get().AsFloat());
                                         count--;
-                                        continue;
+                                        break;
                                     }
 
                                 case 's':
                                     {
                                         Cells.Add(p.AMX.Push(args1[count].AsString()));
                                         count--;
-                                        continue;
+                                        break;
                                     }
                             }
                         }
@@ -129,13 +129,13 @@ namespace discordamx.Scripting.Natives
                         count = (args1.Length - 1);
                         p.Execute();
 
-                    }
 
-                    foreach (CellPtr cell in Cells)
-                    {
-                        p.AMX.Release(cell);
+                        foreach (CellPtr cell in Cells)
+                        {
+                            p.AMX.Release(cell);
+                        }
+                        GC.Collect();
                     }
-                    GC.Collect();
                 }
             }
             catch (Exception ex)
@@ -172,17 +172,50 @@ namespace discordamx.Scripting.Natives
 
         public static int SetTimerEx(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
-            if(args1.Length < 5) return 1;
+            if (args1.Length < 5)
+                return 1; // Return an error code or handle the case where there are insufficient arguments
 
             try
             {
-                ScriptTimer timer = new ScriptTimer(args1[1].AsInt32(), (bool)Convert.ToBoolean(args1[2].AsInt32()), args1[0].AsString(), caller_script, args1[3].AsString(), args1);
+                int duration = args1[1].AsInt32(); // Assuming duration is the first argument
+                bool repeat = Convert.ToBoolean(args1[2].AsInt32()); // Assuming repeat is the second argument
+                string callback = args1[0].AsString(); // Assuming callback is the third argument
+                string format = args1[3].AsString(); // Assuming format is the fourth argument
+
+                // Extracting arguments based on the format string
+                object[] parsedArgs = new object[format.Length];
+                int argIndex = 4; // Start from index 4 of AMXArgumentList
+                for (int i = 0; i < format.Length; i++)
+                {
+                    switch (format[i])
+                    {
+                        case 'i':
+                            parsedArgs[i] = args1[argIndex].AsInt32(); // Assuming integers start from index 4
+                            argIndex++;
+                            break;
+                        case 'f':
+                            parsedArgs[i] = args1[argIndex].AsFloat(); // Assuming floats start from index 5
+                            argIndex++;
+                            break;
+                        case 's':
+                            parsedArgs[i] = args1[argIndex].AsString(); // Assuming strings start from index 6
+                            argIndex++;
+                            break;
+                        default:
+                            // Handle unsupported format specifier
+                            break;
+                    }
+                }
+
+                // Now call the ScriptTimer function with parsed arguments
+                new ScriptTimer(duration, repeat, callback, caller_script, format, parsedArgs);
+                return 1; 
             }
             catch (Exception ex)
             {
                 Program.m_Logger.Exception(ex, caller_script);
+                return -1; // Return an error code if an exception occurs
             }
-            return (Program.m_ScriptTimers.Count);
         }
 
         public static int KillTimer(AMX amx1, AMXArgumentList args1, Script caller_script)
