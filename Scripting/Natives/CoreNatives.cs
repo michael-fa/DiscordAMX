@@ -200,6 +200,7 @@ namespace discordamx.Scripting.Natives
                         case 's':
                             parsedArgs[i] = args1[argIndex].AsString(); // Assuming strings start from index 6
                             argIndex++;
+                            Console.WriteLine(Convert.ToString(parsedArgs[argIndex]));
                             break;
                         default:
                             // Handle unsupported format specifier
