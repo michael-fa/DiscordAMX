@@ -200,7 +200,7 @@ namespace discordamx.Scripting.Natives
                         case 's':
                             parsedArgs[i] = args1[argIndex].AsString(); // Assuming strings start from index 6
                             argIndex++;
-                            Console.WriteLine(Convert.ToString(parsedArgs[argIndex]));
+
                             break;
                         default:
                             // Handle unsupported format specifier
@@ -210,7 +210,7 @@ namespace discordamx.Scripting.Natives
 
                 // Now call the ScriptTimer function with parsed arguments
                 new ScriptTimer(duration, repeat, callback, caller_script, format, parsedArgs);
-                return 1; 
+                return 1;
             }
             catch (Exception ex)
             {

@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AMXWrapperCore;
-using System.Threading.Tasks;
-using System.Diagnostics;
 using DSharpPlus;
 using System.Runtime.InteropServices;
 using discordamx.Discord;
 using DSharpPlus.Entities;
-using discordamx.Utils;
-using discordamx.Scripting;
-using Microsoft.VisualBasic;
-using System.IO;
-using static System.Collections.Specialized.BitVector32;
-using System.IO.Pipes;
 using discordamx.Plugin;
 
 namespace discordamx

@@ -8,7 +8,7 @@ main()
 }
 
 public OnInit()
-{-
+{
     DC_SetActivityText("Initialiasing..", DISCORD_ACTIVITY_PLAYING);
 
     return 1;
