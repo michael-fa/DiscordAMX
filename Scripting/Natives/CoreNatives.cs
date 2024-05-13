@@ -1,13 +1,25 @@
 ﻿using AMXWrapperCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Xml.Linq;
 using WinRT;
 
 namespace discordamx.Scripting.Natives
 {
     public static class CoreNatives
     {
+        public static int DC_RegisterCommand(AMX amx1, AMXArgumentList args1, Script caller_script)
+        {
+            if(args1.Length != 3)return 0;
+            string name = args1[0].AsString();
+            List<string> arguments = new List<string>();
+            string description = args1[2].AsString();
+            string callback  = args1[3].AsString();
+            return Program.m_CommandManager.RegisterCommand(name, arguments, description, callback);
+        }
+
         public static int Loadscript(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if (args1.Length != 1) return 0;
@@ -74,7 +86,7 @@ namespace discordamx.Scripting.Natives
                     if (args1[0].AsString().Length < 2)
                         return 0;
 
-                    AMXPublic tmp = null;
+                    AMXPublic tmp = null!;
                     foreach (Script scr in Manager.m_Scripts)
                     {
                         tmp = scr.m_Amx.FindPublic(args1[0].AsString());
@@ -89,7 +101,7 @@ namespace discordamx.Scripting.Natives
 
                     int count = (args1.Length - 1);
 
-                    AMXPublic p = null;
+                    AMXPublic p = null!;
                     List<CellPtr> Cells = new List<CellPtr>();
 
                     //Important so the format ( ex "iissii" ) is aligned with the arguments pushed to the callback, not being reversed

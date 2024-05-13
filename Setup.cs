@@ -33,6 +33,8 @@ namespace discordamx
             Console.ForegroundColor = ConsoleColor.White;
 
             Program.m_Logger.Write(" -> DiscordAMX BETA 2 © 2024 - www.fanter.eu <-");
+
+            m_CommandManager = new CommandManager();
            
 
             //Environment - Set the OS
