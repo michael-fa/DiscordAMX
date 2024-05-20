@@ -15,8 +15,8 @@ namespace discordamx.Discord
     public static class Bot
     {
         public static DiscordClient Client { get; private set; }
-        //public static InteractivityExtension Interactivity { get; private set; }
-        //public static CommandsNextExtension Commands { get; private set; }
+        public static InteractivityExtension Interactivity { get; private set; }
+        public static CommandsNextExtension Commands { get; private set; }
         
 
 
@@ -62,7 +62,7 @@ namespace discordamx.Discord
             
 
 
-            /*var commandsConfig = new CommandsNextConfiguration
+            var commandsConfig = new CommandsNextConfiguration
             {
                 StringPrefixes = new string[] { "?" },
                 EnableMentionPrefix = true,
@@ -70,7 +70,7 @@ namespace discordamx.Discord
                 EnableDms = true
             };
             Commands = Client.UseCommandsNext(commandsConfig);
-            */
+            
             Client.UseInteractivity(new InteractivityConfiguration
             {
 

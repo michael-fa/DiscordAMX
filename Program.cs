@@ -10,7 +10,7 @@ namespace discordamx
 
     internal static partial class Program
     {
-        public static string VERSION = "0.0.2";
+        public static string VERSION = "0.0.3";
 
         public static bool                                  m_Run = true;
         public static Properties                            m_Properties = null!;
@@ -23,6 +23,7 @@ namespace discordamx
         public static List<Scripting.Guild>                 m_ScriptGuilds = null!;
         public static Logger m_Logger = null!;
         public static List<ScriptTimer> m_ScriptTimers = null!;
+        public static CommandManager m_CommandManager = null!;
 
 
         [DllImport("Kernel32")]
@@ -77,6 +78,8 @@ namespace discordamx
 
             Setup(args);
 
+            m_CommandManager.RegisterCommand("popel", null, "Test befehl", "mycallback");
+
             while (m_Run)
             {
                 //Listen for input - handle it locally - trigger script event too.
@@ -84,13 +87,11 @@ namespace discordamx
                 ProcessLocalInput();
                 Thread.Sleep(100);
             }
-
         }
 
         public static void StopEverything(int errcode = 0)
         {
             m_Run = false;
-
 
             foreach (Script script in Manager.m_Scripts)
             {

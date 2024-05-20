@@ -66,14 +66,16 @@ namespace discordamx.Scripting
 
         public ScriptTimer(int interval, bool rep, string funcCall, Script arg_parent_Script)
         {
-            m_ParentScript = arg_parent_Script;
+            m_ParentScript = arg_parent_Script!;
             m_AMXCallback = m_ParentScript.m_Amx.FindPublic(funcCall);
             if (m_AMXCallback == null)
             {
                 return;
             }
             m_msWait = interval;
-            m_Func = funcCall;
+            m_Args = null!;
+            m_ArgFrmt = null!;
+            m_Func = funcCall!;
             m_Active = true;
             m_Repeat = rep;
             lockObject = new object();
@@ -83,7 +85,7 @@ namespace discordamx.Scripting
             this.ID = Program.m_ScriptTimers.Count;
 
             m_Timer = new System.Timers.Timer(m_msWait);
-            m_Timer.Elapsed += OnTimedEvent;
+            m_Timer.Elapsed += OnTimedEvent!;
             lockObject = new object();
             m_Timer.AutoReset = m_Repeat;
             m_Timer.Start();
@@ -103,7 +105,7 @@ namespace discordamx.Scripting
             m_Func = funcCall;
             m_Active = true;
             m_Repeat = rep;
-            m_ArgFrmt = _ArgsFrm;
+            m_ArgFrmt = _ArgsFrm!;
             m_Args = _args.ToArray();
 
 
@@ -111,7 +113,7 @@ namespace discordamx.Scripting
             this.ID = Program.m_ScriptTimers.Count;
 
             m_Timer = new System.Timers.Timer(m_msWait);
-            m_Timer.Elapsed += OnTimedEvent;
+            m_Timer.Elapsed += OnTimedEvent!;
             lockObject = new object();
             m_Timer.AutoReset = m_Repeat;
             m_Timer.Start();

@@ -50,7 +50,6 @@ namespace discordamx.Scripting.Natives
                         break;
                     }
                     result.DeleteAsync(args1[3].AsString()).Wait();
-
                 }
             }
             catch (Exception ex)
@@ -99,7 +98,7 @@ namespace discordamx.Scripting.Natives
                                     ImageUrl = args1[2].AsString(),
                                     Color = DiscordColor.Blue
 
-                                }).Result;
+                                }).Result!;
                             }
                         }
                         return 1;
@@ -114,9 +113,7 @@ namespace discordamx.Scripting.Natives
 
                     }).Result;
                 }
-
                 if (!args1[5].AsString().Equals("0")) AMX.SetString(args1[5].AsCellPtr(), msg.Id.ToString(), true);
-
             }
             catch (Exception ex)
             {
@@ -146,7 +143,6 @@ namespace discordamx.Scripting.Natives
                 x.SetAuthor(args1[1].AsString(), _Url);
                 break;
             }
-
             return 1;
         }
 

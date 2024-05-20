@@ -43,7 +43,10 @@ namespace discordamx.Scripting
                     scr.m_Hash = _hash;
                     m_Scripts.Add(scr);
                     Program.m_Logger.Debug("Loaded Script " + x + " with hash =  " + BitConverter.ToString(scr.m_Hash).Replace("-", "").ToLowerInvariant() + "!");
-                    if (first == 0) scr.m_Amx.ExecuteMain(); //Only for the first file.
+                    if (first == 0)
+                    {
+                        scr.m_Amx.ExecuteMain(); //Only for the first file.
+                    }
 
                     first = 1;
                     var p = scr.m_Amx.FindPublic("OnInit");
