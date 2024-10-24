@@ -16,9 +16,8 @@ namespace discordamx.Discord
     {
         public static DiscordClient Client { get; private set; }
         public static InteractivityExtension Interactivity { get; private set; }
-        public static CommandsNextExtension Commands { get; private set; }
-        
 
+        public static CommandsNextExtension Commands { get; private set; }
 
         public static async Task RunAsync(DiscordConfiguration dConfig)
         {
@@ -62,18 +61,18 @@ namespace discordamx.Discord
             
 
 
-            var commandsConfig = new CommandsNextConfiguration
+            var cmds = new CommandsNextConfiguration
             {
                 StringPrefixes = new string[] { "?" },
                 EnableMentionPrefix = true,
-             
+      
                 EnableDms = true
             };
-            Commands = Client.UseCommandsNext(commandsConfig);
-            
+            Commands = Client.UseCommandsNext(cmds);
+
             Client.UseInteractivity(new InteractivityConfiguration
             {
-
+           
             });
 
 

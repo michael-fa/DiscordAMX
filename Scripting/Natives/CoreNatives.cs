@@ -10,16 +10,6 @@ namespace discordamx.Scripting.Natives
 {
     public static class CoreNatives
     {
-        public static int DC_RegisterCommand(AMX amx1, AMXArgumentList args1, Script caller_script)
-        {
-            if(args1.Length != 3)return 0;
-            string name = args1[0].AsString();
-            List<string> arguments = new List<string>();
-            string description = args1[2].AsString();
-            string callback  = args1[3].AsString();
-            return Program.m_CommandManager.RegisterCommand(name, arguments, description, callback);
-        }
-
         public static int Loadscript(AMX amx1, AMXArgumentList args1, Script caller_script)
         {
             if (args1.Length != 1) return 0;

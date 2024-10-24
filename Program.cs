@@ -23,7 +23,6 @@ namespace discordamx
         public static List<Scripting.Guild>                 m_ScriptGuilds = null!;
         public static Logger m_Logger = null!;
         public static List<ScriptTimer> m_ScriptTimers = null!;
-        public static CommandManager m_CommandManager = null!;
 
 
         [DllImport("Kernel32")]
@@ -59,6 +58,12 @@ namespace discordamx
 
         static void Main(string[] args)
         {
+
+            //=============================================================================================
+            ///                                        INTERNAL
+            //=============================================================================================
+
+
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Logs/"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs/");
             m_Logger =  new Logger();
@@ -72,13 +77,14 @@ namespace discordamx
             m_DefForegrColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.White;
 
-            //Set the console handler, catching events such as close.76
+            //Set the console handler, catching events such as close.
             _handler += new EventHandler(Handler);
             SetConsoleCtrlHandler(_handler, true);
 
-            Setup(args);
 
-            m_CommandManager.RegisterCommand("popel", null, "Test befehl", "mycallback");
+            
+           
+            Setup(args);  //Prepare the whole rest ig
 
             while (m_Run)
             {
