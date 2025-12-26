@@ -3,6 +3,12 @@
 Please read the [Wiki page](https://github.com/michael-fa/DiscordAMX/wiki) for all information.
 This requires some knowledge about the [PAWN](https://www.compuphase.com/pawn/pawn.htm) language.
 
+# ❗ 📣 Looking for testers (I provide virtual windows server hosting if needed, for free!)
+Contact if you want to test discordamx withing your project(s) and if there is need for running 24/7 I can provide a user account withing my virtual server I got "laying around".
+
+Contact me on discord: toketwo#4598
+
+
 ---
 
 ## Todo
