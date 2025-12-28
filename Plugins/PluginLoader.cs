@@ -56,6 +56,7 @@ namespace discordamx.Plugin
         static public async void UnloadPlugins()
         {
             await Task.Run(() => {
+                if (plugins == null) return;
                 if (plugins.Count == 0) return;
                 foreach (var plugin in plugins)
                 {
