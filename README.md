@@ -8,6 +8,8 @@ Contact if you want to test discordamx within your project(s) and if there is ne
 
 Contact me on discord: toketwo#4598
 
+# ❗ Our official discord-server https://discord.gg/pVqxSz3fMb
+
 
 ---
 
