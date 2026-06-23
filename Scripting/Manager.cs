@@ -28,7 +28,7 @@ namespace discordamx.Scripting
                 if (!Path.GetExtension(x).Equals(".amx", StringComparison.OrdinalIgnoreCase)) continue;
 
 
-                //Pregen the hash, make sure its not equal to the main script already loaded.
+                //Pregen the hash, make sure its not equal to the main script already loaded or to any other loaded script.
                 using (var md5 = MD5.Create())
                 {
                     using (var stream = File.OpenRead(x))

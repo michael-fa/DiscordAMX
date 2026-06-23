@@ -1,7 +1,9 @@
-﻿using discordamx.Plugin;
+﻿using discordamx.Discord;
+using discordamx.Plugin;
 using discordamx.Scripting;
 using DSharpPlus;
 using DSharpPlus.Entities;
+using DSharpPlus.VoiceNext;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -10,17 +12,17 @@ namespace discordamx
 
     internal static partial class Program
     {
-        public static string VERSION = "0.0.3";
+        public static string VERSION = "0.0.3 (Voice beta)";
 
-        public static bool                                  m_Run = true;
-        public static Properties                            m_Properties = null!;
-        private static ConsoleColor                         m_DefForegrColor;
-        private static bool                                 m_Setup = false;
-        public static DiscordConfiguration                  dConfig = null!;
-        public static bool                                  m_ScriptingInited = false;
-        public static List<DiscordChannel>                  m_DmUsers = null!;
-        public static List<Scripting.DiscordEmbedBuilder>   m_Embeds = null!;
-        public static List<Scripting.Guild>                 m_ScriptGuilds = null!;
+        public static bool m_Run = true;
+        public static Properties m_Properties = null!;
+        private static ConsoleColor m_DefForegrColor;
+        private static bool m_Setup = false;
+        public static DiscordConfiguration dConfig = null!;
+        public static bool m_ScriptingInited = false;
+        public static List<DiscordChannel> m_DmUsers = null!;
+        public static List<Scripting.DiscordEmbedBuilder> m_Embeds = null!;
+        public static List<Scripting.Guild> m_ScriptGuilds = null!;
         public static Logger m_Logger = null!;
         public static List<ScriptTimer> m_ScriptTimers = null!;
 
@@ -66,7 +68,7 @@ namespace discordamx
 
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Logs/"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Logs/");
-            m_Logger =  new Logger();
+            m_Logger = new Logger();
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Scripts/"))
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Scripts/");
 
@@ -82,9 +84,10 @@ namespace discordamx
             SetConsoleCtrlHandler(_handler, true);
 
 
-            
-           
+
+
             Setup(args);  //Prepare the whole rest ig
+
 
             while (m_Run)
             {

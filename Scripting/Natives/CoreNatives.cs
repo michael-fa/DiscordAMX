@@ -109,7 +109,7 @@ namespace discordamx.Scripting.Natives
                             {
                                 case 'i':
                                     {
-                                        p.AMX.Push(args1[count].AsIntPtr());
+                                        p.AMX.Push((int)args1[count].AsIntPtr());
                                         count--;
                                         break;
                                     }

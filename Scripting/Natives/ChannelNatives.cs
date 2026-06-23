@@ -167,7 +167,7 @@ namespace discordamx.Scripting.Natives
             if (args1.Length != 2) return 0;
             if (args1[1].AsString().Length == 0) return 0;
             string _Url = null!;
-            if (args1.Length > 1) _Url = args1[2].AsString();
+            if (args1.Length > 1) _Url = args1[1].AsString();
             foreach (Scripting.DiscordEmbedBuilder x in Program.m_Embeds)
             {
                 if (x.m_ID != args1[0].AsInt32()) continue;

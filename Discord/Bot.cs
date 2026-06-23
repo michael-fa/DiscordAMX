@@ -1,29 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
+using DSharpPlus.VoiceNext;
 
 namespace discordamx.Discord
 {
-
-
-
     public static class Bot
     {
         public static DiscordClient Client { get; private set; }
         public static InteractivityExtension Interactivity { get; private set; }
-
         public static CommandsNextExtension Commands { get; private set; }
+        public static VoiceNextExtension Voice { get; private set; }
 
         public static async Task RunAsync(DiscordConfiguration dConfig)
         {
-
-
-            //Try to create a new discord client, this is in the scope of the DC+' code.. 
             try
             {
                 Client = new DiscordClient(dConfig);
@@ -33,11 +26,10 @@ namespace discordamx.Discord
                 Console.WriteLine(ex.Message + ex.Source + "\n" + ex.StackTrace);
                 Program.m_Logger.Exception(ex);
                 Program.StopEverything();
+                return;
             }
 
-
-            //Liten to all the Discord Events
-            
+            // Discord Events
             Client.GuildDownloadCompleted += Events.GuildActions.DownloadCompleted;
             Client.Heartbeated += Events.OnHeartbeated.Execute;
             Client.GuildMemberAdded += Events.MemberJoinLeave.Join;
@@ -58,25 +50,25 @@ namespace discordamx.Discord
             Client.GuildMemberUpdated += Events.GuildActions.UserUpdated;
             Client.ThreadUpdated += Events.GuildActions.ThreadUpdated;
             Client.ThreadMembersUpdated += Events.GuildActions.ThreadMembersUpdated;
-            
 
-
+            // CommandsNext
             var cmds = new CommandsNextConfiguration
             {
-                StringPrefixes = new string[] { "?" },
+                StringPrefixes = new[] { "?" },
                 EnableMentionPrefix = true,
-      
                 EnableDms = true
             };
             Commands = Client.UseCommandsNext(cmds);
 
-            Client.UseInteractivity(new InteractivityConfiguration
+            // Interactivity (requires NuGet: DSharpPlus.Interactivity)
+            Interactivity = Client.UseInteractivity(new InteractivityConfiguration());
+
+            // VoiceNext
+            Voice = Client.UseVoiceNext(new VoiceNextConfiguration
             {
-           
+                EnableIncoming = false
             });
 
-
-            //Finally, connect the bot. Also, in the scope of DC+' code.
             try
             {
                 await Client.ConnectAsync();
@@ -87,14 +79,7 @@ namespace discordamx.Discord
                 Program.m_Logger.Exception(ex);
                 Program.StopEverything();
             }
-
-
-
         }
-
-
-
-
 
         public static async Task DisconnectAsync()
         {

@@ -1,14 +1,19 @@
-﻿using System;
-using DSharpPlus;
-using System.Runtime.InteropServices;
-using discordamx.Discord;
-using DSharpPlus.Entities;
+﻿using discordamx.Discord;
 using discordamx.Plugin;
+using DSharpPlus;
+using DSharpPlus.Entities;
+using DSharpPlus.VoiceNext;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Runtime.InteropServices;
+
+
 
 namespace discordamx
 {
     internal static partial class Program
     {
+
         //Coreinfo
         static bool m_isWindows;
         static bool m_isLinux;
@@ -18,10 +23,9 @@ namespace discordamx
             if (m_Setup) return;
 
 
-
             Program.m_ScriptGuilds = new List<Scripting.Guild>();
             Program.m_ScriptTimers = new List<Scripting.ScriptTimer>();
-            
+
             m_DmUsers = new List<DiscordChannel>();
             Program.m_Embeds = new List<Scripting.DiscordEmbedBuilder>();
 
@@ -32,8 +36,8 @@ namespace discordamx
 #endif
             Console.ForegroundColor = ConsoleColor.White;
 
-            Program.m_Logger.Write(" -> DiscordAMX BETA 2 © 2023-2024 - www.fanter.eu <-");
-           
+            Program.m_Logger.Write(" -> DiscordAMX BETA 2 © 2022-2026 - www.github.com/michael-fa <-");
+
 
             //Environment - Set the OS
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) m_isWindows = true;
@@ -42,6 +46,8 @@ namespace discordamx
 
             if (m_isWindows) Program.m_Logger.Write("INIT: -> Running on Windows.");
             else if (m_isLinux) Program.m_Logger.Write("INIT: Running on Linux. (Make sure you are always up to date!");
+
+
 
             //Handle commands.
             Console.CancelKeyPress += delegate {
@@ -53,6 +59,8 @@ namespace discordamx
             {
                 TokenType = TokenType.Bot,
                 AlwaysCacheMembers = false,
+                MinimumLogLevel = LogLevel.Critical | LogLevel.Information | LogLevel.Warning | LogLevel.Error,
+                //MinimumLogLevel = LogLevel.Debug,
                 MessageCacheSize = 4065,
                 Intents = DiscordIntents.DirectMessageReactions
              | DiscordIntents.DirectMessages
@@ -70,7 +78,7 @@ namespace discordamx
             };
 
 
-            
+
 
 
             //check if main config exists..
@@ -82,7 +90,7 @@ namespace discordamx
 
 
             m_Properties = new Properties(AppDomain.CurrentDomain.BaseDirectory + "discordamx.properties");
-            
+
             if (m_Properties != null)
             {
 
@@ -95,7 +103,7 @@ namespace discordamx
                 Program.m_Logger.Debug("Waiting for first guild data download to finish..");
                 while (!Program.m_ScriptingInited)
                 {
-                    Thread.Sleep(900);   
+                    Thread.Sleep(900);
                 }
                 Console.Write("\n");
 
@@ -114,7 +122,7 @@ namespace discordamx
 
             //Load all the other files.
             Scripting.Manager.LoadFiles();
-          
+
             //Handle key commands.
             Console.CancelKeyPress += delegate {
                 StopEverything();

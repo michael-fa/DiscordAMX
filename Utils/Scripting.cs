@@ -76,7 +76,7 @@ namespace discordamx.Utils
             {
                 if (mbr.m_ID == _guild)
                 {
-                    
+
                     return mbr.m_DCGuild;
                 }
             }

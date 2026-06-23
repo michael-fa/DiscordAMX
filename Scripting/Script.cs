@@ -122,6 +122,8 @@ namespace discordamx.Scripting
             m_Amx.Register("DC_RemovePrivateReaction", (amx1, args1) => Natives.DiscordNatives.DC_RemovePrivateReaction(amx1, args1, this));
 
 
+
+
             foreach (var plugin in PluginLoader.plugins)
             {
                 try

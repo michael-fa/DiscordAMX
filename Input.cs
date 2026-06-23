@@ -56,8 +56,6 @@ namespace discordamx
             {
                 Manager.UnloadScript(script);
             }
-
-
         }
 
         public static void clr(string args)

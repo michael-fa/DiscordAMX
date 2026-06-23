@@ -154,11 +154,5 @@ namespace discordamx.Scripting.Natives
             return 0;
         }
 
-        public static int DC_RegisterCommand(AMX amx1, AMXArgumentList args1, Script caller_script)
-        {
-
-            // DSharpPlus.SlashCommands.S
-            return 1;
-        }
     }
 }
